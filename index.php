@@ -33,7 +33,7 @@
             <h2 class="title">Магазин</h2>    
             <div class="figure-shop__wrapper">
                 <ul class="figure-shop__list">
-                    <li class="figure-shop__item">
+                    <!-- <li class="figure-shop__item">
                         <div class="figure-shop__figure">
                             <div class="figure figure__circle figure_blue"></div>
                         </div>
@@ -43,29 +43,59 @@
                             <div class="figure-shop__descr">Синий</div>
                             <div class="button">В корзину</div>
                         </div>
-                    </li>
-                    <li class="figure-shop__item">
-                        <div class="figure-shop__figure">
-                            <div class="figure figure_red"></div>
-                        </div>
-                        <div class="figure-shop__price">100$</div>
-                        <div class="figure-shop__inner">
-                            <div class="figure-shop__title">Квадрат</div>
-                            <div class="figure-shop__descr">красный</div>
-                            <div class="button">В корзину</div>
-                        </div>
-                    </li>
-                    <li class="figure-shop__item">
-                        <div class="figure-shop__figure">
-                            <div class="figure figure__circle figure_green"></div>
-                        </div>
-                        <div class="figure-shop__price">100$</div>
-                        <div class="figure-shop__inner">
-                            <div class="figure-shop__title">Квадрат</div>
-                            <div class="figure-shop__descr">Зелёный</div>
-                            <div class="button">В корзину</div>
-                        </div>
-                    </li>
+                    </li> -->
+                    <?php
+                        // Подключение к БД и выборка товаров
+                        session_start(); 
+                        require("connection.php");
+
+                        $sql = $db->query('SELECT items.id, figures.name AS figure_name, items.color, items.price, items.quantity FROM items INNER JOIN figures ON items.id_figure = figures.id;');
+                        $items = $sql->fetchAll(PDO::FETCH_ASSOC);
+
+                        foreach ($items as $item) {
+                            
+                            echo '<li class="figure-shop__item">';
+                            echo '<div class="figure-shop__figure">';
+
+                            if($item['color'] == '#266beb') {
+                                $color = "Синий";
+                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_blue"></div>';
+                            } elseif($item['color'] == '#e23e3e') {
+                                $color = "Красный";
+                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_red"></div>';
+                            } else {
+                                $color = "Зелёный";
+                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_green"></div>';
+                            }
+
+                            if($item['figure_name'] == "circle") {
+                                $figure = 'Круг';
+                            }
+                            else {
+                                $figure = 'Квадрат';
+                            }
+                            
+                            echo '</div>';
+                            echo '<div class="figure-shop__price">'. $item['price'] . ' ₽</div>';
+                            echo '<div class="figure-shop__inner">';
+                            echo '<div class="figure-shop__title">'. $figure .'</div>';
+                            echo '<div class="figure-shop__descr">'. $color . '</div>';
+                            echo '<div class="button" data-product-id="'. $item['id'] .'" data-product-name="Круг" data-product-price="'. $item['price'] . '">В корзину</div>';
+                            echo '</div>';
+                            echo'</li>';
+                            // echo '<li>';
+                            // echo '<h2>' . $item['id_figure'] . '</h2>';
+                            // echo '<p>' . $item['description'] . '</p>';
+                            // echo '<p>Цена: $' . $item['price'] . '</p>';
+                            // echo '<p>Цвет: ' . $item['color'] . '</p>';
+                            // echo '<form method="post">';
+                            // echo '<input type="hidden" name="action" value="add_to_cart">';
+                            // echo '<input type="hidden" name="item_id" value="' . $item['item_id'] . '">';
+                            // echo '<input type="submit" value="Добавить в корзину">';
+                            // echo '</form>';
+                            // echo '</li>';
+                        }
+                    ?>
                 </ul>
             </div>
         </div>
