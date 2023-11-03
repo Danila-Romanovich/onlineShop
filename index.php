@@ -14,16 +14,6 @@
                     <h2 class="title__logo"><a href="index.php">FigureShop</a></h2>
                     <div class="header__line"></div>
                 </div>
-                <div class="header__trolley">
-                    
-                    <div class="header__trolley-wrapper">
-                        <a href="trolley.php" class="header__link-trolley">
-                            <img src="img/icons8-корзина-90.png" alt="" class="header__img">
-                        </a>
-                        <div class="header__pointer"></div>
-                    </div>
-    
-                </div>
             </nav>
         </div>
     </header>
@@ -45,69 +35,46 @@
                         </div>
                     </li> -->
                     <?php
-                        // Подключение к БД и выборка товаров
+                        
                         session_start(); 
-                        require("connection.php");
-
-                        $sql = $db->query('SELECT items.id, figures.name AS figure_name, items.color, items.price, items.quantity FROM items INNER JOIN figures ON items.id_figure = figures.id;');
-                        $items = $sql->fetchAll(PDO::FETCH_ASSOC);
-
-                        foreach ($items as $item) {
-                            
-                            echo '<li class="figure-shop__item">';
-                            echo '<div class="figure-shop__figure">';
-
-                            if($item['color'] == '#266beb') {
-                                $color = "Синий";
-                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_blue"></div>';
-                            } elseif($item['color'] == '#e23e3e') {
-                                $color = "Красный";
-                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_red"></div>';
-                            } else {
-                                $color = "Зелёный";
-                                echo '<div class="figure figure__'. $item['figure_name'] . ' figure_green"></div>';
-                            }
-
-                            if($item['figure_name'] == "circle") {
-                                $figure = 'Круг';
-                            }
-                            else {
-                                $figure = 'Квадрат';
-                            }
-                            
-                            echo '</div>';
-                            echo '<div class="figure-shop__price">'. $item['price'] . ' ₽</div>';
-                            echo '<div class="figure-shop__inner">';
-                            echo '<div class="figure-shop__title">'. $figure .'</div>';
-                            echo '<div class="figure-shop__descr">'. $color . '</div>';
-                            echo '<div class="button" data-product-id="'. $item['id'] .'" data-product-name="Круг" data-product-price="'. $item['price'] . '">В корзину</div>';
-                            echo '</div>';
-                            echo'</li>';
-                            // echo '<li>';
-                            // echo '<h2>' . $item['id_figure'] . '</h2>';
-                            // echo '<p>' . $item['description'] . '</p>';
-                            // echo '<p>Цена: $' . $item['price'] . '</p>';
-                            // echo '<p>Цвет: ' . $item['color'] . '</p>';
-                            // echo '<form method="post">';
-                            // echo '<input type="hidden" name="action" value="add_to_cart">';
-                            // echo '<input type="hidden" name="item_id" value="' . $item['item_id'] . '">';
-                            // echo '<input type="submit" value="Добавить в корзину">';
-                            // echo '</form>';
-                            // echo '</li>';
-                        }
+                        require('items.php');
+                        
+                        $product1->displayProductInfo();
+                        $product2->displayProductInfo();
+                        $product3->displayProductInfo();
+                        $product4->displayProductInfo();
+                        $product5->displayProductInfo();
+                        $product6->displayProductInfo();
+                        
                     ?>
                 </ul>
             </div>
         </div>
     </section>
 
+    <section class="cart">
+        <div class="container">
+            <h2 class="title">Корзина</h2> 
+            <form action="POST" class="cart__form">
+                <p id="cart__total" class="cart__total">Итого: 0 ₽</p>
+                <hr class="cart__line">
+                <ul id="cart__list" class="cart__list">
+                    
+                </ul>
+                <button class="btn-sbmt">Оформить заказ</button>
+            </form>
+        </div>
+    </section>
+
     <footer class="footer">
         <div class="container">
+            
             <div class="footer__author">
                 <a href="https://vk.com/sdanilr" class="footer__link">Direct by <span class="footer__ellow">Danila Sakovskiy</span></a>
             </div>
         </div>
     </footer>
 
+    <script src="js/script.js"></script>
 </body>
 </html>
