@@ -67,7 +67,7 @@ class Product {
         echo '<div class="figure-shop__inner">';
         echo '<div class="figure-shop__title">'. $this->figureName .'</div>';
         echo '<div class="figure-shop__descr">'. $this->colorName . '</div>';
-        echo '<div class="button" data-product-id="'. $this->id .'" data-product-price="'. $this->price . '" data-product-type="' . $this->figureType . '">В корзину</div>';
+        echo '<div class="button" data-product-id="'. $this->id .'" data-product-price="'. $this->price . '" data-product-type="' . $this->figureType . '" data-product-name="' . $this->figureName . '">В корзину</div>';
         echo '</div>';
         echo'</li>';
     }
@@ -82,4 +82,18 @@ $product6 = new Product(6, "square", "Красный", 37.00, 28);
 // Пример использования класса Product
 
 
+?>
+
+<?php
+                        
+    session_start(); 
+    require('items.php');
+    
+    $product1->displayProductInfo();
+    $product2->displayProductInfo();
+    $product3->displayProductInfo();
+    $product4->displayProductInfo();
+    $product5->displayProductInfo();
+    $product6->displayProductInfo();
+    
 ?>

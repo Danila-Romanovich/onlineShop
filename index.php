@@ -34,19 +34,7 @@
                             <div class="button">В корзину</div>
                         </div>
                     </li> -->
-                    <?php
-                        
-                        session_start(); 
-                        require('items.php');
-                        
-                        $product1->displayProductInfo();
-                        $product2->displayProductInfo();
-                        $product3->displayProductInfo();
-                        $product4->displayProductInfo();
-                        $product5->displayProductInfo();
-                        $product6->displayProductInfo();
-                        
-                    ?>
+                    
                 </ul>
             </div>
         </div>
@@ -56,6 +44,9 @@
         <div class="container">
             <h2 class="title">Корзина</h2> 
             <form action="POST" class="cart__form">
+                <p id="cart__summ">1</p>
+                <p id="cart__discount">2</p>
+                <p id="cart__shipping">3</p>
                 <p id="cart__total" class="cart__total">Итого: 0 ₽</p>
                 <hr class="cart__line">
                 <ul id="cart__list" class="cart__list">
@@ -66,14 +57,14 @@
         </div>
     </section>
 
-    <footer class="footer">
+    <!-- <footer class="footer">
         <div class="container">
             
             <div class="footer__author">
                 <a href="https://vk.com/sdanilr" class="footer__link">Direct by <span class="footer__ellow">Danila Sakovskiy</span></a>
             </div>
         </div>
-    </footer>
+    </footer> -->
 
     <script src="js/script.js"></script>
 </body>
