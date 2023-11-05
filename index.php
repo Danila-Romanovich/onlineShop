@@ -14,6 +14,16 @@
                     <h2 class="title__logo"><a href="index.php">FigureShop</a></h2>
                     <div class="header__line"></div>
                 </div>
+                <div class="header__trolley">
+                    
+                    <div class="header__trolley-wrapper">
+                        <a href="cart.php" class="header__link-trolley">
+                            <img src="img/icons8-корзина-90.png" alt="" class="header__img">
+                        </a>
+                        <div class="header__pointer"></div>
+                    </div>
+    
+                </div>
             </nav>
         </div>
     </header>
@@ -34,38 +44,54 @@
                             <div class="button">В корзину</div>
                         </div>
                     </li> -->
-                    
+                    <?php
+                        session_start(); 
+                        require('connection.php');
+                        require('orderFacade.php');
+
+                        $sql = 'SELECT * FROM items';
+                        $items = mysqli_query($conn, $sql);
+                   
+                        foreach ($items as $item) {
+                            $id = $item['id'];
+                            $name = $item['name'];
+                            $type = $item['type'];
+                            $colorName = $item['colorName'];
+                            $colorClass = $item['colorClass'];
+                            $price = $item['price'];
+
+                            echo "<li class=\"figure-shop__item\">
+                                    <form method=\"POST\" action=\"addToCart.php\">
+                                        <div class=\"figure-shop__figure\">
+                                            <div class=\"figure figure__$type figure_$colorClass\"></div>
+                                        </div>
+                                        <div class=\"figure-shop__price\">$price ₽</div>
+                                        <div class=\"figure-shop__inner\">
+                                            <input style=\"display: none\" type=\"text\" name=\"id\" value=\"$id\" readonly>
+                                            <div class=\"figure-shop__title\">$name</div>
+                                            <div class=\"figure-shop__descr\">$colorName</div>
+                                            <input class=\"button\" type=\"submit\" name=\"submit\" value=\"В корзину\">
+                                        </div>
+                                    </form>
+                                </li>";
+                        }
+                       
+                        
+                    ?>
                 </ul>
             </div>
         </div>
     </section>
-
-    <section class="cart">
-        <div class="container">
-            <h2 class="title">Корзина</h2> 
-            <form action="POST" class="cart__form">
-                <p id="cart__summ">1</p>
-                <p id="cart__discount">2</p>
-                <p id="cart__shipping">3</p>
-                <p id="cart__total" class="cart__total">Итого: 0 ₽</p>
-                <hr class="cart__line">
-                <ul id="cart__list" class="cart__list">
-                    
-                </ul>
-                <button class="btn-sbmt">Оформить заказ</button>
-            </form>
-        </div>
-    </section>
-
-    <!-- <footer class="footer">
+    
+    <footer class="footer">
         <div class="container">
             
             <div class="footer__author">
                 <a href="https://vk.com/sdanilr" class="footer__link">Direct by <span class="footer__ellow">Danila Sakovskiy</span></a>
             </div>
         </div>
-    </footer> -->
+    </footer>
 
-    <script src="js/script.js"></script>
+    <script src="js/scripts.js"></script>
 </body>
 </html>

@@ -17,7 +17,7 @@
                 <div class="header__trolley">
                     
                     <div class="header__trolley-wrapper">
-                        <a href="trolley.php" class="header__link-trolley">
+                        <a href="cart.php" class="header__link-trolley">
                             <img src="img/icons8-корзина-90.png" alt="" class="header__img">
                         </a>
                         <div class="header__pointer"></div>
@@ -27,6 +27,25 @@
             </nav>
         </div>
     </header>
+
+    <section class="cart">
+        <div class="container">
+            <?php
+                require('orderFacade.php');        
+                $facade->generateOrder();
+            ?>
+            <!-- <p id="cart__summ">1</p>
+            <p id="cart__discount">2</p>
+            <p id="cart__shipping">3</p>
+            <p id="cart__total" class="cart__total">Итого: 0 ₽</p>
+            <hr class="cart__line">
+            <ul id="cart__list" class="cart__list">
+                <li class="cart__item"></li>
+            </ul> -->
+            <button class="btn-sbmt">Оформить заказ</button>
+            
+        </div>
+    </section>
 
 
     <footer class="footer">
